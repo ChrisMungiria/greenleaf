@@ -1,4 +1,10 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -39,7 +45,8 @@ const LoginScreen = ({ navigation }) => {
   return (
     <View className="w-screen h-screen bg-skobeloff flex flex-col justify-end">
       <Text className="text-white text-4xl p-5">Log In</Text>
-      <View
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "margin"}
         className="w-screen h-60 bg-text_white rounded-t-3xl p-10"
         style={{
           height: (windowHeight * 3) / 4,
@@ -94,7 +101,7 @@ const LoginScreen = ({ navigation }) => {
             Don't have an account? <Text className="underline">Sign Up</Text>
           </Text>
         </Pressable>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };

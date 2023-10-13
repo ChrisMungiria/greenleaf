@@ -6,7 +6,7 @@ const SplashScreen = ({ navigation }) => {
   // Simple Splash screen with button to move to the sign up page
   return (
     <View className="w-screen h-screen bg-midnight_green">
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <Image
         source={require("../assets/background.png")}
         className="w-full h-auto"

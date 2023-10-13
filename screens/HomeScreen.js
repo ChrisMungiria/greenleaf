@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import React, { useState } from "react";
 import { Dimensions } from "react-native";
 import useAuth from "../hooks/useAuth";
@@ -14,7 +14,7 @@ import Co2 from "react-native-vector-icons/MaterialCommunityIcons";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   // Firstname is stored in a state updated by a function that retrieves the user's firstname from the 'users' database
   const [firstname, setFirstname] = useState("");
   var user = useAuth();
@@ -56,54 +56,56 @@ const HomeScreen = () => {
       >
         <Text className="text-midnight_green capitalize">Your greenhouses</Text>
         {/* This should be a pressable that moves to the greenhouse screen   */}
-        <View className="border border-[#C2C2C2] w-full h-fit rounded-xl mt-5">
-          <Image
-            source={require("../assets/greenhouse.png")}
-            className="w-full h-auto object-cover rounded-t-xl"
-          />
-          <View className="w-full h-fit flex flex-row justify-around p-4">
-            <View>
-              <WaterIcon
-                name="water-outline"
-                size={20}
-                color="#0B7A75"
-                style={{ marginLeft: 1 }}
-              />
-              <Text className="text-center text-skobeloff">80%</Text>
-            </View>
-            <View>
-              <HumidityIcon name="cloudy-gusts" size={20} color="#7B2D26" />
-              <Text className="text-center text-falu_red">20%</Text>
-            </View>
-            <View>
-              <TemperatureIcon
-                name="thermometer"
-                size={20}
-                color="#7B2D26"
-                style={{ marginLeft: 5 }}
-              />
-              <Text className="text-falu_red">20%</Text>
-            </View>
-            <View>
-              <LightIcon
-                name="light-up"
-                size={20}
-                color="#0B7A75"
-                style={{ marginLeft: 2 }}
-              />
-              <Text className="text-skobeloff">60%</Text>
-            </View>
-            <View>
-              <Co2
-                name="molecule-co2"
-                size={20}
-                color="#0B7A75"
-                style={{ marginLeft: 2 }}
-              />
-              <Text className="text-skobeloff">70%</Text>
+        <Pressable onPress={() => navigation.navigate("GreenhouseScreen")}>
+          <View className="border border-[#C2C2C2] w-full h-fit rounded-xl mt-5">
+            <Image
+              source={require("../assets/greenhouse.png")}
+              className="w-full h-auto object-cover rounded-t-xl"
+            />
+            <View className="w-full h-fit flex flex-row justify-around p-4">
+              <View>
+                <WaterIcon
+                  name="water-outline"
+                  size={20}
+                  color="#0B7A75"
+                  style={{ marginLeft: 1 }}
+                />
+                <Text className="text-center text-skobeloff">80%</Text>
+              </View>
+              <View>
+                <HumidityIcon name="cloudy-gusts" size={20} color="#7B2D26" />
+                <Text className="text-center text-falu_red">20%</Text>
+              </View>
+              <View>
+                <TemperatureIcon
+                  name="thermometer"
+                  size={20}
+                  color="#7B2D26"
+                  style={{ marginLeft: 5 }}
+                />
+                <Text className="text-falu_red">20%</Text>
+              </View>
+              <View>
+                <LightIcon
+                  name="light-up"
+                  size={20}
+                  color="#0B7A75"
+                  style={{ marginLeft: 2 }}
+                />
+                <Text className="text-skobeloff">60%</Text>
+              </View>
+              <View>
+                <Co2
+                  name="molecule-co2"
+                  size={20}
+                  color="#0B7A75"
+                  style={{ marginLeft: 2 }}
+                />
+                <Text className="text-skobeloff">70%</Text>
+              </View>
             </View>
           </View>
-        </View>
+        </Pressable>
       </View>
     </View>
   );
