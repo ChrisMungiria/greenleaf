@@ -36,7 +36,6 @@ const SignUpScreen = ({ navigation }) => {
         // Add user to 'users' database
         const user = userCredential.user;
         await setDoc(doc(db, "users", user.uid), docData);
-        navigation.navigate("LoginScreen");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -123,7 +122,7 @@ const SignUpScreen = ({ navigation }) => {
 
           {/* Sign Up Button */}
           <Pressable
-            onPress={() => handleSignUp()}
+            onPress={handleSignUp}
             className="p-4 bg-skobeloff rounded-3xl flex items-center justify-center mt-5 mx-auto"
             style={{ width: (windowWidth * 1) / 3 }}
           >

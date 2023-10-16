@@ -23,7 +23,7 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        navigation.navigate("HomeScreen");
+        navigation.replace("HomeScreen");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -85,7 +85,7 @@ const LoginScreen = ({ navigation }) => {
         {/* Login Button */}
         {/* Log In Button */}
         <Pressable
-          onPress={() => handleLogin()}
+          onPress={handleLogin}
           className="p-4 bg-skobeloff rounded-3xl flex items-center justify-center mt-5 mx-auto"
           style={{ width: (windowWidth * 1) / 3 }}
         >

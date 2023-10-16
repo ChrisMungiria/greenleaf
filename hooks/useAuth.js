@@ -22,8 +22,6 @@ const useAuth = () => {
     return unsbuscribe;
   }, []);
 
-  console.log(user);
-
   return user;
 };
 

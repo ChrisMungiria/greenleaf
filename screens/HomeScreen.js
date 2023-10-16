@@ -1,9 +1,8 @@
 import { Image, Pressable, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions } from "react-native";
-import useAuth from "../hooks/useAuth";
 import { getDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import MenuIcon from "react-native-vector-icons/Feather";
 import WaterIcon from "react-native-vector-icons/Ionicons";
 import HumidityIcon from "react-native-vector-icons/Fontisto";
@@ -17,11 +16,11 @@ const windowHeight = Dimensions.get("window").height;
 const HomeScreen = ({ navigation }) => {
   // Firstname is stored in a state updated by a function that retrieves the user's firstname from the 'users' database
   const [firstname, setFirstname] = useState("");
-  var user = useAuth();
 
   // Function that retrieves the user's firstname from the 'users' database
   const getUser = async () => {
-    const docRef = doc(db, "users", user.uid);
+    const uid = auth.currentUser.uid;
+    const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -34,7 +33,21 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  getUser();
+  const handleSignout = () => {
+    auth.signOut().then(() => {
+      navigation.replace("LoginScreen");
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+    const unsbuscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.navigate("HomeScreen");
+      }
+    });
+    return unsbuscribe;
+  }, []);
 
   return (
     <View className="w-screen h-screen bg-skobeloff flex flex-col justify-end">
@@ -105,6 +118,12 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
+        </Pressable>
+        <Pressable
+          onPress={handleSignout}
+          className="bg-red-500 px-4 py-2 rounded-xl w-fit h-fit"
+        >
+          <Text className="text-white">Sign Out</Text>
         </Pressable>
       </View>
     </View>
