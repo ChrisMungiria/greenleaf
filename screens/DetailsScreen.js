@@ -1,10 +1,22 @@
-import { View, Text, Pressable } from "react-native";
-import React from "react";
+import { View, Text, Pressable, Switch } from "react-native";
+import React, { useState } from "react";
 import BackIcon from "react-native-vector-icons/Ionicons";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
+
+const guides = {
+  moistiure:
+    "Most plants thrive in soil moisture content of between 20% and 60%, however it is differs slightly from flowers, trees, and shrubs; which require levels between 21% and 40%  and vegetables; which require levels between 41% and 80%",
+  co2: "CO2 is important for plant growth, and its concentration may vary in different plant stages. For most crops the saturation point will be reached at about 1,000–1,300 ppm under ideal circumstances.A lower level (800–1,000 ppm) is recommended for raising seedlings (tomatoes, cucumbers and peppers) as well as for lettuce production.",
+  temperature:
+    "Most common greenhouse crops require a temperature range of around 18º-26ºC.Temperatures above or below this range can stress the plant and slow down photosynthesis producing unhealthy crops and lower yields.",
+  light:
+    "For vegetables, they tend to fall within the medium-light (20,000 - 30,000 lux) and the high-light (Above 30,000 lux). Seedlings and young plants typically require higher light levels (around 20,000 to 40,000 lux) to promote healthy growth and prevent elongation due to insufficient light.",
+  humidity:
+    "While each plant is different, the ideal humidity level for most plants in a greenhouse is about 80%. At this level, growth rates are highest for common greenhouse plants. At higher or lower humidity levels, plant psychological processes may slow down. High relative humidity levels also drastically increase the susceptibility to common humidity diseases.",
+};
 
 const data = {
   labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -27,6 +39,8 @@ const chartConfig = {
 };
 
 const DetailsScreen = ({ route, navigation }) => {
+  const [automatic, setAutomatic] = useState(false);
+  const [override, setOverride] = useState(false);
   const { name } = route.params;
 
   return (
@@ -57,6 +71,58 @@ const DetailsScreen = ({ route, navigation }) => {
       />
       <Text className="text-2xl text-midnight_green font-bold">
         Quick settings
+      </Text>
+      <View className="flex flex-row space-x-2 items-center">
+        <Text className="text-skobeloff">
+          {name === "Moisture" && "Automatic irrigation"}
+          {name === "CO2" && "Automatic fan control"}
+          {name === "Temperature" && "Automatic fan control"}
+          {name === "Light" && "Automatic light control"}
+          {name === "Humidity" && "Automatic humidity control"}
+        </Text>
+        <Switch
+          trackColor={{ false: "#D7C9AA", true: "#0B7A75" }}
+          thumbColor={automatic ? "#ffffff" : "#D7C9AA"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={() => {
+            setAutomatic(!automatic);
+            setOverride(false);
+          }}
+          value={automatic}
+        />
+      </View>
+      <View className="flex flex-row space-x-2 items-center mt-3">
+        <Text className="text-skobeloff">
+          {name === "Moisture" && "Irrigation On (override)"}
+          {name === "CO2" && "Fan On (override)"}
+          {name === "Temperature" && "Fan on (override)"}
+          {name === "Light" && "Light on (override)"}
+          {name === "Humidity" && "Open vents (override)"}
+        </Text>
+        <Switch
+          trackColor={{ false: "#D7C9AA", true: "#0B7A75" }}
+          thumbColor={override ? "#ffffff" : "#D7C9AA"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={() => {
+            setOverride(!override);
+            setAutomatic(false);
+          }}
+          value={override}
+        />
+      </View>
+      <Text className="text-2xl text-midnight_green font-bold">
+        {name === "Moisture" && "Moisture Guide"}
+        {name === "CO2" && "CO2 Guide"}
+        {name === "Temperature" && "Temperature Guide"}
+        {name === "Light" && "Light Guide"}
+        {name === "Humidity" && "Humidity Guide"}
+      </Text>
+      <Text className="text-skobeloff text-xs leading-5">
+        {name === "Moisture" && guides.moistiure}
+        {name === "CO2" && guides.co2}
+        {name === "Temperature" && guides.temperature}
+        {name === "Light" && guides.light}
+        {name === "Humidity" && guides.humidity}
       </Text>
     </View>
   );

@@ -37,7 +37,7 @@ const GreenhouseScreen = ({ navigation }) => {
         </Pressable>
       </View>
       <View className="w-full h-fit p-5">
-        <Text className="text-xl text-midnight_green">Greenhouse A</Text>
+        <Text className="text-2xl text-midnight_green">Greenhouse A</Text>
         <View className="mt-2 flex flex-row items-center justify-between">
           <Text>What are you growing?</Text>
           <SelectDropdown
