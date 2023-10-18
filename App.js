@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
 import useAuth from "./hooks/useAuth";
 import GreenhouseScreen from "./screens/GreenhouseScreen";
+import DetailsScreen from "./screens/DetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ export default function App() {
           <Stack.Screen
             name="GreenhouseScreen"
             component={GreenhouseScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DetailsScreen"
+            component={DetailsScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
