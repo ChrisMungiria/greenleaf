@@ -49,7 +49,7 @@ const GreenhouseScreen = ({ navigation }) => {
               });
             }}
             className={`h-fit py-3 px-2 flex-1 rounded-md ${
-              sensorData && sensorData.moisture < 500
+              sensorData && sensorData.moisture > 500
                 ? "bg-falu_red/20"
                 : "bg-dun/20"
             }`}
@@ -59,14 +59,14 @@ const GreenhouseScreen = ({ navigation }) => {
                 name="water-outline"
                 size={30}
                 color={
-                  sensorData && sensorData.moisture < 500
+                  sensorData && sensorData.moisture > 500
                     ? "#7B2D26"
                     : "#0B7A75"
                 }
               />
               <Text
                 className={`text-2xl ${
-                  sensorData && sensorData.moisture < 500
+                  sensorData && sensorData.moisture > 500
                     ? "text-falu_red"
                     : "text-skobeloff"
                 }`}
@@ -76,7 +76,7 @@ const GreenhouseScreen = ({ navigation }) => {
             </View>
             <Text
               className={`text-2xl text-center font-bold my-4 ${
-                sensorData && sensorData.moisture < 500
+                sensorData && sensorData.moisture > 500
                   ? "text-falu_red"
                   : "text-skobeloff"
               }`}

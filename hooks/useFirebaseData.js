@@ -7,7 +7,6 @@ const useFirebaseData = (firebaseApp) => {
   useEffect(() => {
     const db = getDatabase(firebaseApp);
 
-    // Replace 'EgodA7YKpuUDhRg9MGKOEsMMVrJ2' with the actual user ID or node in your database
     const userId = "EgodA7YKpuUDhRg9MGKOEsMMVrJ2";
     const sensorDataRef = ref(db, `SensorData/${userId}/readings`);
 
