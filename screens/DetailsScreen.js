@@ -9,7 +9,6 @@ const windowWidth = Dimensions.get("window").width;
 const guides = {
   moistiure:
     "Most plants thrive in soil moisture content of between 20% and 60%, however it is differs slightly from flowers, trees, and shrubs; which require levels between 21% and 40%  and vegetables; which require levels between 41% and 80%",
-  co2: "CO2 is important for plant growth, and its concentration may vary in different plant stages. For most crops the saturation point will be reached at about 1,000–1,300 ppm under ideal circumstances.A lower level (800–1,000 ppm) is recommended for raising seedlings (tomatoes, cucumbers and peppers) as well as for lettuce production.",
   temperature:
     "Most common greenhouse crops require a temperature range of around 18º-26ºC.Temperatures above or below this range can stress the plant and slow down photosynthesis producing unhealthy crops and lower yields.",
   light:
@@ -75,7 +74,6 @@ const DetailsScreen = ({ route, navigation }) => {
       <View className="flex flex-row space-x-2 items-center">
         <Text className="text-skobeloff">
           {name === "Moisture" && "Automatic irrigation"}
-          {name === "CO2" && "Automatic fan control"}
           {name === "Temperature" && "Automatic fan control"}
           {name === "Light" && "Automatic light control"}
           {name === "Humidity" && "Automatic humidity control"}
@@ -94,7 +92,6 @@ const DetailsScreen = ({ route, navigation }) => {
       <View className="flex flex-row space-x-2 items-center mt-3">
         <Text className="text-skobeloff">
           {name === "Moisture" && "Irrigation On (override)"}
-          {name === "CO2" && "Fan On (override)"}
           {name === "Temperature" && "Fan on (override)"}
           {name === "Light" && "Light on (override)"}
           {name === "Humidity" && "Open vents (override)"}
@@ -111,15 +108,13 @@ const DetailsScreen = ({ route, navigation }) => {
         />
       </View>
       <Text className="text-2xl text-midnight_green font-bold">
-        {name === "Moisture" && "Moisture Guide"}
-        {name === "CO2" && "CO2 Guide"}
+        {name === "Moisture" && "Moisture Guide"}={" "}
         {name === "Temperature" && "Temperature Guide"}
         {name === "Light" && "Light Guide"}
         {name === "Humidity" && "Humidity Guide"}
       </Text>
       <Text className="text-skobeloff text-xs leading-5">
         {name === "Moisture" && guides.moistiure}
-        {name === "CO2" && guides.co2}
         {name === "Temperature" && guides.temperature}
         {name === "Light" && guides.light}
         {name === "Humidity" && guides.humidity}

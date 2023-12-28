@@ -38,6 +38,10 @@ const LoginScreen = ({ navigation }) => {
         // If user not found, alert the user
         else if (errorMessage === "Firebase: Error (auth/user-not-found).") {
           alert("User not found!");
+        } else if (
+          errorMessage === "Firebase: Error (auth/invalid-login-credentials)."
+        ) {
+          alert("Invalid login credentials!");
         }
       });
   };
