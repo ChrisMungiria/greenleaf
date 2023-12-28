@@ -1,8 +1,11 @@
 import { View, Text, Pressable, Switch } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackIcon from "react-native-vector-icons/Ionicons";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+// Query Data hook
+import useFirebaseData from "../hooks/useFirebaseData";
+import db from "../firebase";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -17,30 +20,30 @@ const guides = {
     "While each plant is different, the ideal humidity level for most plants in a greenhouse is about 80%. At this level, growth rates are highest for common greenhouse plants. At higher or lower humidity levels, plant psychological processes may slow down. High relative humidity levels also drastically increase the susceptibility to common humidity diseases.",
 };
 
-const data = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  datasets: [
-    {
-      data: [20, 45, 28, 80, 99, 43, 50],
-      color: (opacity = 1) => `#0B7A75`,
-      strokeWidth: 2,
-    },
-  ],
-};
-const chartConfig = {
-  backgroundGradientFrom: "#F0F3F5",
-  backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#F0F3F5",
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `#0B7A75`,
-  strokeWidth: 2,
-  barPercentage: 0.5,
-};
-
 const DetailsScreen = ({ route, navigation }) => {
   const [automatic, setAutomatic] = useState(false);
   const [override, setOverride] = useState(false);
   const { name } = route.params;
+
+  const data = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43, 50],
+        color: (opacity = 1) => `#0B7A75`,
+        strokeWidth: 2,
+      },
+    ],
+  };
+  const chartConfig = {
+    backgroundGradientFrom: "#F0F3F5",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#F0F3F5",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `#0B7A75`,
+    strokeWidth: 2,
+    barPercentage: 0.5,
+  };
 
   return (
     <View className="w-screen h-screen bg-text_white pt-14 px-4">
