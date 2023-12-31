@@ -16,7 +16,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const GreenhouseScreen = ({ navigation }) => {
   const sensorData = useFirebaseData(db);
-  console.log(sensorData);
+  // console.log(sensorData);
   return (
     <View className="w-screen h-screen">
       <View className="relative ">

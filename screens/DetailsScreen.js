@@ -10,7 +10,7 @@ import db from "../firebase";
 const windowWidth = Dimensions.get("window").width;
 
 const guides = {
-  moistiure:
+  moisture:
     "Most plants thrive in soil moisture content of between 20% and 60%, however it is differs slightly from flowers, trees, and shrubs; which require levels between 21% and 40%  and vegetables; which require levels between 41% and 80%",
   temperature:
     "Most common greenhouse crops require a temperature range of around 18º-26ºC.Temperatures above or below this range can stress the plant and slow down photosynthesis producing unhealthy crops and lower yields.",
@@ -23,13 +23,31 @@ const guides = {
 const DetailsScreen = ({ route, navigation }) => {
   const [automatic, setAutomatic] = useState(false);
   const [override, setOverride] = useState(false);
+  const [sensorDataArray, setSensorDataArray] = useState([]);
   const { name } = route.params;
+
+  const sensorData = useFirebaseData(db);
+
+  const getSensorData = () => {
+    if (name === "Moisture") {
+      return sensorData.moisture;
+    }
+    if (name == "Light") {
+      return sensorData.light;
+    }
+    if (name == "Temperature") {
+      return sensorData.temperature;
+    }
+    if (name == "Humidity") {
+      return sensorData.humidity;
+    }
+  };
 
   const data = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43, 50],
+        data: sensorDataArray,
         color: (opacity = 1) => `#0B7A75`,
         strokeWidth: 2,
       },
@@ -44,6 +62,19 @@ const DetailsScreen = ({ route, navigation }) => {
     strokeWidth: 2,
     barPercentage: 0.5,
   };
+
+  useEffect(() => {
+    if (sensorData) {
+      // Limit the array to 10 items using shift
+      if (sensorDataArray.length > 10) {
+        sensorDataArray.shift();
+      }
+      // Add the new data to the array
+      setSensorDataArray([...sensorDataArray, getSensorData()]);
+
+      console.log(sensorDataArray);
+    }
+  }, [sensorData]);
 
   return (
     <View className="w-screen h-screen bg-text_white pt-14 px-4">
@@ -117,7 +148,7 @@ const DetailsScreen = ({ route, navigation }) => {
         {name === "Humidity" && "Humidity Guide"}
       </Text>
       <Text className="text-skobeloff text-xs leading-5">
-        {name === "Moisture" && guides.moistiure}
+        {name === "Moisture" && guides.moisture}
         {name === "Temperature" && guides.temperature}
         {name === "Light" && guides.light}
         {name === "Humidity" && guides.humidity}
