@@ -23,7 +23,7 @@ const guides = {
 const DetailsScreen = ({ route, navigation }) => {
   const [automatic, setAutomatic] = useState(false);
   const [override, setOverride] = useState(false);
-  const [sensorDataArray, setSensorDataArray] = useState([]);
+  const [sensorDataArray, setSensorDataArray] = useState([0]);
   const { name } = route.params;
 
   const sensorData = useFirebaseData(db);
