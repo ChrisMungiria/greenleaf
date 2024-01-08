@@ -1,5 +1,5 @@
 import { View, Image, Pressable, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CloseIcon from "react-native-vector-icons/AntDesign";
 import DropIcon from "react-native-vector-icons/Ionicons";
 import TemperatureIcon from "react-native-vector-icons/FontAwesome5";
@@ -9,14 +9,41 @@ import { Dimensions } from "react-native";
 
 // Query Data hook
 import useFirebaseData from "../hooks/useFirebaseData";
-import db from "../firebase";
+import db, { auth } from "../firebase";
+import { doc } from "firebase/firestore";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const GreenhouseScreen = ({ navigation }) => {
   const sensorData = useFirebaseData(db);
-  // console.log(sensorData);
+
+  // Sensor Limits
+  const [moistureLimit, setMoistureLimit] = useState(0);
+  const [temperatureLimit, setTemperatureLimit] = useState(0);
+  const [lightLimit, setLightLimit] = useState(0);
+  const [humidityLimit, setHumidityLimit] = useState(0);
+
+  const getLimit = async (name) => {
+    const uid = auth.currentUser.uid;
+    const docRef = doc(db, "users", uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      return docSnap.data().limits[name];
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  };
+
+  useEffect(() => {
+    getLimit("moisture").then((data) => setMoistureLimit(data));
+    getLimit("temperature").then((data) => setTemperatureLimit(data));
+    getLimit("lightLimit").then((data) => setLightLimit(data));
+    getLimit("humidityLimit").then((data) => setHumidityLimit(data));
+  }, []);
+
   return (
     <View className="w-screen h-screen">
       <View className="relative ">

@@ -6,6 +6,8 @@ import { Dimensions } from "react-native";
 // Query Data hook
 import useFirebaseData from "../hooks/useFirebaseData";
 import db from "../firebase";
+import EditLimit from "../components/EditLimit";
+import useSetLimit from "../hooks/useSetLimit";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -21,8 +23,6 @@ const guides = {
 };
 
 const DetailsScreen = ({ route, navigation }) => {
-  const [automatic, setAutomatic] = useState(false);
-  const [override, setOverride] = useState(false);
   const [sensorDataArray, setSensorDataArray] = useState([0]);
   const { name } = route.params;
 
@@ -102,47 +102,13 @@ const DetailsScreen = ({ route, navigation }) => {
         chartConfig={chartConfig}
         bezier
       />
-      <Text className="text-2xl text-midnight_green font-bold">
-        Quick settings
-      </Text>
-      <View className="flex flex-row space-x-2 items-center">
-        <Text className="text-skobeloff">
-          {name === "Moisture" && "Automatic irrigation"}
-          {name === "Temperature" && "Automatic fan control"}
-          {name === "Light" && "Automatic light control"}
-          {name === "Humidity" && "Automatic humidity control"}
-        </Text>
-        <Switch
-          trackColor={{ false: "#D7C9AA", true: "#0B7A75" }}
-          thumbColor={automatic ? "#ffffff" : "#D7C9AA"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={() => {
-            setAutomatic(!automatic);
-            setOverride(false);
-          }}
-          value={automatic}
-        />
+      <Text className="text-2xl text-midnight_green font-bold">Edit Limit</Text>
+      <View className="w-full">
+        <EditLimit name={name} />
       </View>
-      <View className="flex flex-row space-x-2 items-center mt-3">
-        <Text className="text-skobeloff">
-          {name === "Moisture" && "Irrigation On (override)"}
-          {name === "Temperature" && "Fan on (override)"}
-          {name === "Light" && "Light on (override)"}
-          {name === "Humidity" && "Open vents (override)"}
-        </Text>
-        <Switch
-          trackColor={{ false: "#D7C9AA", true: "#0B7A75" }}
-          thumbColor={override ? "#ffffff" : "#D7C9AA"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={() => {
-            setOverride(!override);
-            setAutomatic(false);
-          }}
-          value={override}
-        />
-      </View>
+
       <Text className="text-2xl text-midnight_green font-bold">
-        {name === "Moisture" && "Moisture Guide"}={" "}
+        {name === "Moisture" && "Moisture Guide"}
         {name === "Temperature" && "Temperature Guide"}
         {name === "Light" && "Light Guide"}
         {name === "Humidity" && "Humidity Guide"}

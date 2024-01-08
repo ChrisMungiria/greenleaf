@@ -32,6 +32,10 @@ const SignUpScreen = ({ navigation }) => {
           firstname: firstname,
           lastname: lastname,
           email: emailAddress,
+          moistureLimit: 0,
+          temperatureLimit: 0,
+          lightLimit: 0,
+          humidityLimit: 0,
         };
         // Add user to 'users' database
         const user = userCredential.user;

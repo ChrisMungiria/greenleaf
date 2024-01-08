@@ -75,53 +75,14 @@ const HomeScreen = ({ navigation }) => {
               source={require("../assets/greenhouse.png")}
               className="w-full h-auto object-cover rounded-t-xl"
             />
-            <View className="w-full h-fit flex flex-row justify-around p-4">
-              <View>
-                <WaterIcon
-                  name="water-outline"
-                  size={20}
-                  color="#0B7A75"
-                  style={{ marginLeft: 1 }}
-                />
-                <Text className="text-center text-skobeloff">80%</Text>
-              </View>
-              <View>
-                <HumidityIcon name="cloudy-gusts" size={20} color="#7B2D26" />
-                <Text className="text-center text-falu_red">20%</Text>
-              </View>
-              <View>
-                <TemperatureIcon
-                  name="thermometer"
-                  size={20}
-                  color="#7B2D26"
-                  style={{ marginLeft: 5 }}
-                />
-                <Text className="text-falu_red">20%</Text>
-              </View>
-              <View>
-                <LightIcon
-                  name="light-up"
-                  size={20}
-                  color="#0B7A75"
-                  style={{ marginLeft: 2 }}
-                />
-                <Text className="text-skobeloff">60%</Text>
-              </View>
-              <View>
-                <Co2
-                  name="molecule-co2"
-                  size={20}
-                  color="#0B7A75"
-                  style={{ marginLeft: 2 }}
-                />
-                <Text className="text-skobeloff">70%</Text>
-              </View>
+            <View className="w-full h-fit flex p-4">
+              <Text className="text-skobeloff">Greenhouse A</Text>
             </View>
           </View>
         </Pressable>
         <Pressable
           onPress={handleSignout}
-          className="bg-red-500 px-4 py-2 rounded-xl w-fit h-fit"
+          className="bg-red-500 px-4 py-2 rounded-xl mt-5 w-fit h-fit"
         >
           <Text className="text-white">Sign Out</Text>
         </Pressable>
