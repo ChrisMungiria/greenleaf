@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Switch } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
 import BackIcon from "react-native-vector-icons/Ionicons";
 import { LineChart } from "react-native-chart-kit";
@@ -7,7 +7,6 @@ import { Dimensions } from "react-native";
 import useFirebaseData from "../hooks/useFirebaseData";
 import db from "../firebase";
 import EditLimit from "../components/EditLimit";
-import useSetLimit from "../hooks/useSetLimit";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -24,6 +23,7 @@ const guides = {
 
 const DetailsScreen = ({ route, navigation }) => {
   const [sensorDataArray, setSensorDataArray] = useState([0]);
+  const [timeStamps, setTimeStamps] = useState([0]);
   const { name } = route.params;
 
   const sensorData = useFirebaseData(db);
@@ -44,7 +44,7 @@ const DetailsScreen = ({ route, navigation }) => {
   };
 
   const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    labels: timeStamps,
     datasets: [
       {
         data: sensorDataArray,
@@ -74,6 +74,15 @@ const DetailsScreen = ({ route, navigation }) => {
 
       console.log(sensorDataArray);
     }
+
+    // Get timestamps
+    const date = new Date();
+    const time = date.toLocaleTimeString();
+    if (timeStamps.length > 10) {
+      timeStamps.shift();
+    }
+    setTimeStamps([...timeStamps, time]);
+    console.log(timeStamps);
   }, [sensorData]);
 
   return (
